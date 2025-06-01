@@ -9,13 +9,13 @@ class WordCounter(Node):
     def __init__(self, node_name, *, context = None, cli_args = None, namespace = None, use_global_arguments = True, enable_rosout = True, start_parameter_services = True, parameter_overrides = None, allow_undeclared_parameters = False, automatically_declare_parameters_from_overrides = False, enable_logger_service = False):
         super().__init__(node_name, context=context, cli_args=cli_args, namespace=namespace, use_global_arguments=use_global_arguments, enable_rosout=enable_rosout, start_parameter_services=start_parameter_services, parameter_overrides=parameter_overrides, allow_undeclared_parameters=allow_undeclared_parameters, automatically_declare_parameters_from_overrides=automatically_declare_parameters_from_overrides, enable_logger_service=enable_logger_service)
         self.Subscriber_ = self.create_subscription(Int64, "number", self.callback_number, 10)
-        self.Server_ = self.create_service(ResetCounter, "counter_service", self.service_callback)
+        self.Server_ = self.create_service(ResetCounter, "reset_counter", self.service_callback)
         self.counter_ = 0
 
         self.get_logger().info("the service Node code has been started")
 
     def callback_number(self, msg : Int64):
-        self.counter_ += msg.data
+        self.counter_ += 1
         self.get_logger().info(f"the current value is {self.counter_}")
 
 
